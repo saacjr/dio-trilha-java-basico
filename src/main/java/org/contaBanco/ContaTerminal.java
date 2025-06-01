@@ -1,3 +1,8 @@
+/**
+ * Classe que representa uma conta bancária com funcionalidades básicas de um terminal bancário.
+ * Permite criar contas, acessar contas existentes, realizar saques, depósitos e simulações de investimento.
+ * Os dados das contas são armazenados em memória enquanto o programa estiver em execução.
+ */
 package org.contaBanco;
 
 import java.util.*;
@@ -11,6 +16,13 @@ public class ContaTerminal {
     static Scanner scanner = new Scanner(System.in);
     static Map<String, ContaTerminal> contas = new HashMap<>();
 
+    /**
+     * Construtor da classe ContaTerminal.
+     * @param numero Número da conta.
+     * @param agencia Número da agência.
+     * @param nomeCliente Nome do cliente.
+     * @param saldo Saldo inicial da conta.
+     */
     public ContaTerminal(int numero, String agencia, String nomeCliente, float saldo) {
         this.numero = numero;
         this.agencia = agencia;
@@ -18,11 +30,18 @@ public class ContaTerminal {
         this.saldo = saldo;
     }
 
+    /**
+     * Exibe uma mensagem de boas-vindas após a criação da conta.
+     */
     public void exibirMensagemBoasVindas() {
         System.out.printf("\nOlá %s, obrigado por criar uma conta em nosso banco, sua agência é %s, conta %d e seu saldo %.2f já está disponível para saque.\n",
                 nomeCliente, agencia, numero, saldo);
     }
 
+    /**
+     * Método principal que exibe o menu inicial e redireciona o usuário conforme a opção escolhida.
+     * @param args Argumentos da linha de comando (não utilizados).
+     */
     public static void main(String[] args) {
         while (true) {
             System.out.println("""
@@ -51,6 +70,9 @@ Insira sua opção:""");
         }
     }
 
+    /**
+     * Cria uma nova conta com os dados fornecidos pelo usuário.
+     */
     static void criarConta() {
         System.out.print("Por favor, digite o número da Conta: ");
         int numero = lerInteiroComValidacao();
@@ -69,6 +91,9 @@ Insira sua opção:""");
         conta.exibirMensagemBoasVindas();
     }
 
+    /**
+     * Permite o acesso a uma conta existente e apresenta o menu de operações.
+     */
     static void entrarConta() {
         System.out.print("Digite o número da conta: ");
         int numero = lerInteiroComValidacao();
@@ -104,6 +129,9 @@ Insira sua opção:""");
         }
     }
 
+    /**
+     * Realiza uma operação de saque, descontando o valor do saldo se houver fundos suficientes.
+     */
     void sacar() {
         System.out.print("Digite o valor para saque: ");
         float saque = lerFloatComValidacao();
@@ -115,6 +143,9 @@ Insira sua opção:""");
         }
     }
 
+    /**
+     * Realiza uma operação de depósito, somando o valor ao saldo.
+     */
     void depositar() {
         System.out.print("Digite o valor para depósito: ");
         float deposito = lerFloatComValidacao();
@@ -122,6 +153,10 @@ Insira sua opção:""");
         System.out.printf("Depósito de R$ %.2f realizado. Saldo atual: R$ %.2f\n", deposito, saldo);
     }
 
+    /**
+     * Realiza uma simulação de investimento com retorno aleatório entre -100% e +100%.
+     * Atualiza o saldo com base no resultado e exibe uma mensagem correspondente.
+     */
     void investir() {
         System.out.print("Digite o valor a ser investido: ");
         float aporte = lerFloatComValidacao();
@@ -142,6 +177,10 @@ Insira sua opção:""");
         }
     }
 
+    /**
+     * Lê um valor inteiro do usuário e, em caso de erro, retorna ao menu principal.
+     * @return valor inteiro lido do terminal.
+     */
     static int lerInteiroComValidacao() {
         try {
             return Integer.parseInt(scanner.nextLine());
@@ -152,6 +191,10 @@ Insira sua opção:""");
         }
     }
 
+    /**
+     * Lê um valor float do usuário e, em caso de erro, retorna ao menu principal.
+     * @return valor float lido do terminal.
+     */
     static float lerFloatComValidacao() {
         try {
             return Float.parseFloat(scanner.nextLine());
